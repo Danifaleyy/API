@@ -7,7 +7,7 @@ import { personalSchema } from '../schema/personal.schema';
 const conexion = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "daniel123",
+    password: "",
     database: "pw2024",
     port: 3306,
     //Evitar las multiples consultas a la vez
