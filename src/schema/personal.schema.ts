@@ -32,12 +32,12 @@ export const personalSchema = z.object({
     }),    
     //Aqui refinamos para que el usuario solo pueda ingresar como el valor Tec de culiacan, le dara error si ingresa otro valor
     //Si la validacion es Tec de Culiacan esta bien y si no lo es mandara un mensaje atravez del campo drieccion
-}).refine(data => data.direccion == "Tec de Culiacan",{
-    message: "La direccion debe de ser Tec de Culiacan",
+})//.refine(data => data.direccion == "Tec de Culiacan",{
+    //message: "La direccion debe de ser Tec de Culiacan",
     //Columna
-    path: ["direccion"]
+    //path: ["direccion"]
     //Refinamos para que slo pueda ingresar 2 valores: 1-Alta y 2-Baja
-});//.refine(data => data.estatus <=2,{
+//});//.refine(data => data.estatus <=2,{
     //message: "Solo puedes ingresar: 1-Alta y 2-Baja",
     //Columna
     //path: ["estatus"]
