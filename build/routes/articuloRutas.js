@@ -46,56 +46,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const personalServices = __importStar(require("../services/personalServices"));
+const articuloServices = __importStar(require("../services/articuloServices"));
 //Activamos las rutas
 const router = express_1.default.Router();
 //Rutas
 //Para mostrar todos
 //http://localhost:3001/api/personal/
 router.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let personal = yield personalServices.obtienePersonal();
-    res.send(personal);
+    let articulo = yield articuloServices.obtieneArticulo();
+    res.send(articulo);
 }));
 //Para mostrar uno en especifico
 //http://localhost:3001/api/personal/1 <------Numero id del personal
-router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let personal = yield personalServices.encuentraPersonal(Number(req.params.id));
-    res.send(personal);
-}));
-//Para mostrar usuarios con el mismo telefono
-//http://localhost:3001/api/personal/telefono/1234567890 <------telefono
-router.get('/telefono/:telefono', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let personal = yield personalServices.encuentraPersonalTelefono(req.params.telefono);
-    res.send(personal);
+router.get('/:id_articulo', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let articulo = yield articuloServices.encuentraArticulo(Number(req.params.id_articulo));
+    res.send(articulo);
 }));
 //Para insertar
 //Rutas para hacer insercciones: Post es para insertar
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { nombre, direccion, telefono, estatus } = req.body;
-        const nuevo = yield personalServices.agregarPersonal({
-            nombre,
-            direccion,
-            telefono,
-            estatus
+        const { descripcion, precio, cantidad_almacen, fecha_caducidad } = req.body;
+        const nuevo = yield articuloServices.agregarArticulo({
+            descripcion,
+            precio,
+            cantidad_almacen,
+            fecha_caducidad
         });
         res.send(nuevo);
     }
     catch (e) {
-        res.send("No se puede agregar el personal");
+        res.send("No se puede agregar el articulo");
         // res.status(400).send('Error en los datos');
     }
 }));
 //Para modificar datos
 router.put('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id, nombre, direccion, telefono, estatus } = req.body;
-        const modificado = yield personalServices.modificarPersonal({
-            id,
-            nombre,
-            direccion,
-            telefono,
-            estatus
+        const { id_articulo, descripcion, precio, cantidad_almacen, fecha_caducidad } = req.body;
+        const modificado = yield articuloServices.modificarArticulo({
+            id_articulo,
+            descripcion,
+            precio,
+            cantidad_almacen,
+            fecha_caducidad
         });
         res.send(modificado);
     }
@@ -106,8 +100,8 @@ router.put('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 //Eliminar un registro.
 router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.body;
-        const eliminado = yield personalServices.borrarPersonal(Number(id));
+        const { id_articulo } = req.body;
+        const eliminado = yield articuloServices.borrarArticulo(Number(id_articulo));
         res.send(eliminado);
     }
     catch (e) {

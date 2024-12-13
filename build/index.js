@@ -4,22 +4,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-//Creamos la aplicacion atraves del paquete express y llamamos al constructor
-const app = (0, express_1.default)();
-//Configurar rutas para el acceso personal
+const cors_1 = __importDefault(require("cors"));
 const personalRutas_1 = __importDefault(require("./routes/personalRutas"));
-//Todo lo que regresa al usuario es de tipo JSON
+const clientesRutas_1 = __importDefault(require("./routes/clientesRutas")); // Importa las rutas de clientes
+const articuloRutas_1 = __importDefault(require("./routes/articuloRutas"));
+const registroRutas_1 = __importDefault(require("./routes/registroRutas"));
+// Creamos la aplicación a través de Express
+const app = (0, express_1.default)();
+// Configurar middleware para que Express entienda JSON
 app.use(express_1.default.json());
-//Puerto para escuchar la peticion del fronted
+app.use((0, cors_1.default)());
+// Puerto para escuchar la petición del frontend
 const PUERTO = 3001;
-//Activar la ruta base
-app.use('/api/personal', personalRutas_1.default);
-//Ruta
-// app.get('/hola',(_req, res) => {
-//    let fecha = new Date().toLocaleDateString();
-//    res.send('mundo con la fecha' + fecha + 'con TypeScript');
-//})
-//Encender el servidor y lo ponemos en escucha
+// Registrar rutas
+app.use('/api/personal', personalRutas_1.default); // Ruta de personal
+app.use('/api/clientes', clientesRutas_1.default); // Ruta de clientes
+app.use('/api/articulos', articuloRutas_1.default); // Ruta de articulos
+app.use('/api/clientes/registro', registroRutas_1.default); // Ruta de registro
+// Iniciar el servidor
 app.listen(PUERTO, () => {
     console.log(`Servidor en ejecución y escuchando el puerto ${PUERTO}`);
 });
